@@ -1,13 +1,25 @@
 var readline = require('readline');
 
 function encrypt (password) {
-	// body...
-	// return encrypted password
+	var pw = password.toString().trim();
+	var encrypted ="";
+	for  (i=0; i<password.length; i++) {
+		var encryptedChar = String.fromCharCode((pw.charCodeAt(i)*5) % 26 + 97);
+ 		encrypted += encryptedChar;
+	}
+	return encrypted;
 }
 
 function decrypt (encrypted) {
-	// body...
-	// return decrypted password
+	/*console.log("encrypted = " + encrypted);
+	console.log("decrypt fn started");*/
+	
+	var decrypted = "";
+	for  (i=0; i<encrypted.length; i++) {
+		var decryptedChar = String.fromCharCode((encrypted.charCodeAt(i)*5) % 26 + 97);
+ 		decrypted += decryptedChar;
+	}
+	return decrypted;
 }
 
 var rl = readline.createInterface({
@@ -16,11 +28,9 @@ var rl = readline.createInterface({
 });
 
 rl.question("Please create a new password: ", function(answer) {
-  // TODO: Log the answer in a database
-  console.log("Your encrypted password is:", answer);
-  console.log("Your decrypted password is:", answer);
+	var 	encrypted = encrypt(answer.toString().trim());
+		decrypted = decrypt(encrypted);
+  console.log("Your encrypted password is:", encrypted);
+  console.log("Your decrypted password is:", decrypted);
   rl.close();
 });
-
-
-// .toString().trim();
