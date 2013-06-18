@@ -1,5 +1,4 @@
 var readline = require('readline');
-
 function encrypt (password) {
 	var pw = password.toString().trim();
 	var encrypted ="";
@@ -9,28 +8,26 @@ function encrypt (password) {
 	}
 	return encrypted;
 }
-
-function decrypt (encrypted) {
-	/*console.log("encrypted = " + encrypted);
-	console.log("decrypt fn started");*/
-	
-	var decrypted = "";
+function verifyEncryption (encrypted, answer) {
+	var pw = (answer.toString().trim())
+	var decrypted2 = "";
 	for  (i=0; i<encrypted.length; i++) {
-		var decryptedChar = String.fromCharCode((encrypted.charCodeAt(i)*5) % 26 + 97);
- 		decrypted += decryptedChar;
+		var decryptedChar = String.fromCharCode((pw.charCodeAt(i)*5) % 26 + 97);
+ 		decrypted2 += decryptedChar;
 	}
-	return decrypted;
+	if (decrypted2 ==encrypted) {
+	return "verfied"
+	}
+	return "invalid"
 }
-
 var rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
 rl.question("Please create a new password: ", function(answer) {
 	var 	encrypted = encrypt(answer.toString().trim());
-		decrypted = decrypt(encrypted);
+		validate = verifyEncryption(encrypted,answer);
   console.log("Your encrypted password is:", encrypted);
-  console.log("Your decrypted password is:", decrypted);
+  console.log("Confirm that the encyption algorithm is reproducible:", validate);
   rl.close();
 });
